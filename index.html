@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.button {
+    background-color: #1e50a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    color: #1e50a0;
+    font-size: 45px;
+}
+
+</style>
+<meta charset="utf-8" />
+
+<script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+
+<script type="text/javascript" type="text/javascript">
+  // Connecting to ROS
+  // -----------------
+
+  var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9091'
+  });
+
+  ros.on('connection', function() {
+    console.log('Connected to websocket server.');
+  });
+
+  ros.on('error', function(error) {
+    console.log('Error connecting to websocket server: ', error);
+  });
+
+  ros.on('close', function() {
+    console.log('Connection to websocket server closed.');
+  });
+
+
+  // Calling a service
+  // -----------------
+
+  var wm_soundboard = new ROSLIB.Service({
+    ros : ros,
+    name : '/wm_play_sound',
+    serviceType : 'wm_sound_library/play_service'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : 'drama.wav' 
+  });
+
+
+  function drama() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'drama.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+
+  function trololol() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'trollolol.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+
+  function murlock() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'murlock.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+  function drumroll() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'drumroll.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+  function chewbacca() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'chewbacca.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+  function thug_life() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'thug_life.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+  function jeopardy() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'jeopardy.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+  function yeah() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'yeah.wav'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        play : str
+  });
+
+  wm_soundboard.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+}
+
+  function airhorn() {
+  var str = new ROSLIB.Message({data : 'airhorn.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result) {});
+}
+
+  function doh() {
+  var str = new ROSLIB.Message({data : 'doh.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function wrong() {
+  var str = new ROSLIB.Message({data : 'wrong.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function incorrect() {
+  var str = new ROSLIB.Message({data : 'incorrect.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function error() {
+  var str = new ROSLIB.Message({data : 'error.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function ding() {
+  var str = new ROSLIB.Message({data : 'ding.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function laugh() {
+  var str = new ROSLIB.Message({data : 'laugh.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function victory() {
+  var str = new ROSLIB.Message({data : 'victory.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function laugh() {
+  var str = new ROSLIB.Message({data : 'laugh.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function computerstartup() {
+  var str = new ROSLIB.Message({data : 'computer-startup.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function john_cena() {
+  var str = new ROSLIB.Message({data : 'john_cena.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function got_item() {
+  var str = new ROSLIB.Message({data : 'got_item.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function badumtss() {
+  var str = new ROSLIB.Message({data : 'badumtss.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function r2d2() {
+  var str = new ROSLIB.Message({data : 'r2d2.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function crickets() {
+  var str = new ROSLIB.Message({data : 'crickets.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function baseball() {
+  var str = new ROSLIB.Message({data : 'baseball.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+  function to_be_continued() {
+  var str = new ROSLIB.Message({data : 'to_be_continued.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+ function turn_down() {
+  var str = new ROSLIB.Message({data : 'turn_down.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+ function shooting_stars() {
+  var str = new ROSLIB.Message({data : 'shooting_stars.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+ function mvt_wave() {
+  var str = new ROSLIB.Message({data : 'shooting_stars.wav'});
+  var request = new ROSLIB.ServiceRequest({play : str});
+  wm_soundboard.callService(request, function(result){});
+}
+
+
+</script>
+</head>
+
+<body>
+
+
+  <h1>Soundboard</h1>
+  <button class="button" onclick="drama()">Drama</button>
+<button class="button" onclick="trololol()">Trollolol</button>
+<button class="button" onclick="shooting_stars()">Shooting Stars</button>
+<button class="button" onclick="turn_down()">Turn down</button>
+<button class="button" onclick="to_be_continued()">To be continued</button>
+<button class="button" onclick="baseball()">Baseball</button>
+<button class="button" onclick="crickets()">Crickets</button>
+<button class="button" onclick="r2d2()">R2D2</button>
+<button class="button" onclick="badumtss()">Badumtss</button>
+<button class="button" onclick="got_item()">Got item</button>
+<button class="button" onclick="john_cena()">John Cena</button>
+<button class="button" onclick="computerstartup()">Computer startup</button>
+<button class="button" onclick="victory()">Victory</button>
+<button class="button" onclick="laugh()">Laugh</button>
+<button class="button" onclick="ding()">Ding</button>
+<button class="button" onclick="error()">Error</button>
+<button class="button" onclick="incorrect()">Incorrect</button>
+<button class="button" onclick="wrong()">Wrong</button>
+<button class="button" onclick="doh()">Doh</button>
+<button class="button" onclick="murlock()">Murlock</button>
+<button class="button" onclick="drumroll()">Drumroll</button>
+<button class="button" onclick="chewbacca()">Chewbacca</button>
+<button class="button" onclick="thug_life()">Thug life</button>
+<button class="button" onclick="jeopardy()">Jeopardy</button>
+<button class="button" onclick="yeah()">Yeah</button>
+<button class="button" onclick="airhorn()">Airhorn</button>
+  <h1>Mouvement</h1>
+  <button class="button" onclick="mvt_wave()">Wave</button>
+
+</body>
+</html>
