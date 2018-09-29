@@ -29,11 +29,28 @@ h1 {
 <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
 
 <script type="text/javascript" type="text/javascript">
+
+        //
+        //    Generation de trajectoire
+        //    Changer le header du fichier de mouvement
+        //    Changer les temps de mouvement sinon le mouvement est trop lent
+        //    
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+
   // Connecting to ROS
   // -----------------
 
   var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9091'
+    url : 'ws://192.168.0.250:9091'
   });
 
   ros.on('connection', function() {
@@ -63,6 +80,16 @@ h1 {
   });
 
 
+  var run_trajectory = new ROSLIB.Service({
+    ros : ros,
+    name : '/run_trajectory',
+    serviceType : 'wm_trajectory_manager/run_trajectory'
+  });
+
+  var trajectory_request = new ROSLIB.ServiceRequest({ 
+        file : 'Wave' 
+  });
+
   function drama() {
 
 
@@ -81,6 +108,9 @@ h1 {
       + result.sum);
   });
 }
+
+
+
 
   function trololol() {
 
@@ -325,11 +355,58 @@ h1 {
 }
 
  function mvt_wave() {
-  var str = new ROSLIB.Message({data : 'shooting_stars.wav'});
-  var request = new ROSLIB.ServiceRequest({play : str});
-  wm_soundboard.callService(request, function(result){});
+  var test = "Wave";
+  var trajectory_request = new ROSLIB.ServiceRequest({file : test});
+  console.log("test");
+  run_trajectory.callService(trajectory_request);
+  console.log("test2");
 }
 
+  function mvt_wave2() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'Wave'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        file : 'Wave'
+  });
+        
+  console.log("test");
+
+  run_trajectory.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+
+  console.log("test2");
+}
+
+  function waist() {
+
+
+  var str = new ROSLIB.Message({
+  data : 'waist'
+  });
+
+  var request = new ROSLIB.ServiceRequest({ 
+        file : 'waist'
+  });
+        
+  console.log("test");
+
+  run_trajectory.callService(request, function(result) {
+    console.log('Result for service call on '
+      + wm_soundboard.name
+      + ': '
+      + result.sum);
+  });
+
+  console.log("test2");
+}
 
 </script>
 </head>
@@ -365,7 +442,8 @@ h1 {
 <button class="button" onclick="yeah()">Yeah</button>
 <button class="button" onclick="airhorn()">Airhorn</button>
   <h1>Mouvement</h1>
-  <button class="button" onclick="mvt_wave()">Wave</button>
+  <button class="button" onclick="mvt_wave2()">Wave</button>
+<button class="button" onclick="waist()">Waist</button>
 
 </body>
 </html>
