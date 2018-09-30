@@ -3,14 +3,19 @@
 <head>
   <link rel="stylesheet" type="text/css" href="include/style.css">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta charset="utf-8" />
+<style>
 
-  <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
-  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
-  <script type="text/javascript" src="include/ros_script.js"></script>
-  <script type="text/javascript" src="include/sidepanel_script.js"></script>
+</style>
+<meta charset="utf-8" />
+
+<script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+<script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+<script type="text/javascript" src="include/ros_script.js"></script>
+<script type="text/javascript" src="include/sidepanel_script.js"></script>
 
 
+<script type="text/javascript" type="text/javascript">
+</script>
 </head>
 
 <body>
@@ -23,8 +28,12 @@
     <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
   </div>
 
-  <div id="main">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+<div id="main">
+  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+  <h1>Movement</h1>
+  <button class="button" onclick="move('Wave')">Wave</button>
+  <button class="button" onclick="move('waist')">Waist</button>
 
 </div>
 </body>

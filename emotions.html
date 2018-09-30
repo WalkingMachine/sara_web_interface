@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="include/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+
+  <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <script type="text/javascript" src="include/ros_script.js"></script>
+  <script type="text/javascript" src="include/sidepanel_script.js"></script>
+  <style>
+  .slidecontainer {
+      width: 100%;
+  }
+
+  .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+  }
+
+  .slider:hover {
+      opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html"><img src="icon/home_icon.png" alt="Smiley face" height="20"> Home</a>
+    <a href="movement.html"><img src="icon/move_icon.png" alt="Smiley face" height="20"> Movement</a>
+    <a href="emotions.html"><img src="icon/emo_icon.png" alt="Smiley face" height="20"> Emotions</a>
+    <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
+  </div>
+
+  <div id="main">
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+      <h1>Brightness</h1>
+      <div class="slidecontainer">
+    <input type="range" min="1" max="255" value="50" class="slider" id="myRange">
+    <p>Value: <span id="demo"></span></p>
+  </div>
+
+  <script>
+  var slider = document.getElementById("myRange");
+  var output = document.getElementById("demo");
+  output.innerHTML = slider.value;
+  slider.onmouseup = function() {
+    brightness(this.value);
+    output.innerHTML = this.value;
+  }
+
+  </script>
+
+    <h1>Emotions</h1>
+    <button class="button" onclick="emotion(1)">Smile</button>
+    <button class="button" onclick="emotion(2)">Sad</button>
+    <button class="button" onclick="emotion(3)">Confused</button>
+    <button class="button" onclick="emotion(4)">Mad</button>
+    <button class="button" onclick="emotion(5)">Surprise</button>
+    <button class="button" onclick="emotion(6)">Wink</button>
+    <button class="button" onclick="emotion(7)">Party</button>
+  </div>
+</body>
+</html>
