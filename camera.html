@@ -9,7 +9,20 @@
   <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
   <script type="text/javascript" src="include/ros_script.js"></script>
   <script type="text/javascript" src="include/sidepanel_script.js"></script>
+  <script>
+  function set_adress()
+  {
+    var begin = "http://"
+    document.getElementById("camera_url").src=begin+document.getElementById("adress").value+topic; 
+  }
+  function update_adress()
+  {
+    var begin = "http://"
+    var stream = "/stream?topic="
+    document.getElementById("camera_url").src=begin+document.getElementById("adress").value+stream+document.getElementById("topic").value; 
+  }
 
+  </script>
 </head>
 
 <body>
@@ -24,8 +37,16 @@
   </div>
 
   <div id="main">
+
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+    <div>
+    <img id="camera_url" src="http://192.168.1.229:8080/stream?topic=/head_xtion/rgb/image_raw"></img>
+    </div>
+    <input id="adress" type="text" name="adress" value="192.168.1.229:8080"> 
+    <input id="topic" type="text" name="topic" value="/head_xtion/rgb/image_raw">
+    <button type="button" onclick="update_adress();">Update adress</button>  
 
 </div>
+
 </body>
 </html>
