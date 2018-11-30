@@ -27,9 +27,15 @@
     <a href="emotions.html"><img src="icon/emo_icon.png" alt="Smiley face" height="20"> Emotions</a>
     <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
     <a href="camera.html"><img src="icon/camera_icon.png" alt="Smiley face" height="20"> Camera</a>
+    <a href="behaviors.html"><img src="icon/move_icon.png" alt="Smiley face" height="20"> Behaviors</a>
   </div>
 
 <div id="main">
+  <div align="right">
+    <p id="connection_status" style="display:inline;color:red;font-size:20px;border:3px; border-style:solid; border-color:#FF0000; padding: 0.5em;">
+      Not connected
+    </p>
+  </div>
   <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
   <h1>Movement</h1>
@@ -37,7 +43,44 @@
   <button class="button" onclick="move('waist')">Waist</button>
   <button class="button" onclick="move('Dab')">Dab</button>
   <button class="button" onclick="move('Casser')">Casser</button>
+</br></br>
+  <h1>Control</h1>
+  <button id="btn_front" class="button" onmouseup="move_stop()" onmousedown="move_front()">Move Front</button>
+  <button id="btn_back" class="button" onmouseup="move_stop()" onmousedown="move_back()">Move Back</button>
+  <button id="btn_left" class="button" onmouseup="move_stop()" onmousedown="twist_left()">Twist Left</button>
+  <button id="btn_right" class="button" onmouseup="move_stop()" onmousedown="twist_right()">Twist Right</button>
+
+</br>
+<input id="input_key">
+
 
 </div>
+<script>openNav()</script>
+<script>
+var input_key = document.getElementById("input_key");
+
+input_key.addEventListener("keydown", function(event) {
+  if(event.keyCode === 38)
+  {
+    move_front();
+  }
+  if(event.keyCode === 40)
+  {
+    move_back();
+  }
+  if(event.keyCode === 37)
+  {
+    twist_left();
+  }
+  if(event.keyCode === 39)
+  {
+    twist_right();
+  }
+})
+input_key.addEventListener("keyup", function(event) {
+  console.log(event.keyCode);
+  move_stop();
+})
+</script>
 </body>
 </html>
