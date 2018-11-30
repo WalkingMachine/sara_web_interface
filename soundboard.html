@@ -9,9 +9,12 @@
   <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
   <script type="text/javascript" src="include/ros_script.js"></script>
   <script type="text/javascript" src="include/sidepanel_script.js"></script>
-  
 
-
+  <script>
+  function sendSayCmd() {
+    sayText(document.getElementById("textToSay").value);
+  }
+  </script>
 </head>
 
 <body>
@@ -23,9 +26,16 @@
     <a href="emotions.html"><img src="icon/emo_icon.png" alt="Smiley face" height="20"> Emotions</a>
     <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
     <a href="camera.html"><img src="icon/camera_icon.png" alt="Smiley face" height="20"> Camera</a>
+    <a href="behaviors.html"><img src="icon/move_icon.png" alt="Smiley face" height="20"> Behaviors</a>
+
   </div>
 
   <div id="main">
+    <div align="right">
+      <p id="connection_status" style="display:inline;color:red;font-size:20px;border:3px; border-style:solid; border-color:#FF0000; padding: 0.5em;">
+        Not connected
+      </p>
+    </div>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
     <h1>Soundboard</h1>
@@ -41,6 +51,7 @@
     <button class="button" onclick="play_sound('got_item.wav')">Got item</button>
     <button class="button" onclick="play_sound('john_cena.wav')">John Cena</button>
     <button class="button" onclick="play_sound('computer-startup.wav')">Computer startup</button>
+    <button class="button" onclick="play_sound('mac_startup.wav')">Mac startup</button>
     <button class="button" onclick="play_sound('victory.wav')">Victory</button>
     <button class="button" onclick="play_sound('laugh.wav')">Laugh</button>
     <button class="button" onclick="play_sound('ding.wav')">Ding</button>
@@ -56,7 +67,17 @@
     <button class="button" onclick="play_sound('yeah.wav')">Yeah</button>
     <button class="button" onclick="play_sound('airhorn.wav')">Airhorn</button>
     <button class="button" onclick="play_sound('casser.wav')">Casser</button>
+    <button class="button" onclick="play_sound('green.wav')">Smoke green</button>
+    <button class="button" onclick="play_sound('wazza.wav')">Wazza</button>
+
+    <h1>Say something</h1>
+    <div width="100%">
+    <input id="textToSay" type="text" style="font-size: 24px; width:75%; margin-right: 20px;" value=""><button class="button" type="button" onclick="sendSayCmd()">SAY</button>
+    </div>
 
 </div>
+
+
+<script>openNav()</script>
 </body>
 </html>

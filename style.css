@@ -15,6 +15,19 @@ body {
     margin: 4px 2px;
     cursor: pointer;
 }
+.buttonStop {
+    background-color: #1e50a0;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    width: 150px;
+    height: 50px;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
 h1 {
     text-align: center;
     text-transform: uppercase;

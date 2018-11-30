@@ -56,9 +56,17 @@
     <a href="emotions.html"><img src="icon/emo_icon.png" alt="Smiley face" height="20"> Emotions</a>
     <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
     <a href="camera.html"><img src="icon/camera_icon.png" alt="Smiley face" height="20"> Camera</a>
+    <a href="behaviors.html"><img src="icon/move_icon.png" alt="Smiley face" height="20"> Behaviors</a>
   </div>
 
   <div id="main">
+
+    <div align="right">
+      <p id="connection_status" style="display:inline;color:red;font-size:20px;border:3px; border-style:solid; border-color:#FF0000; padding: 0.5em;">
+        Not connected
+      </p>
+    </div>
+
       <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
       <h1>Brightness</h1>
@@ -87,5 +95,6 @@
     <button class="button" onclick="emotion(6)">Wink</button>
     <button class="button" onclick="emotion(7)">Party</button>
   </div>
+  <script>openNav()</script>
 </body>
 </html>

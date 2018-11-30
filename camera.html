@@ -9,20 +9,58 @@
   <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
   <script type="text/javascript" src="include/ros_script.js"></script>
   <script type="text/javascript" src="include/sidepanel_script.js"></script>
+
   <script>
-  function set_adress()
-  {
-    var begin = "http://"
-    document.getElementById("camera_url").src=begin+document.getElementById("adress").value+topic; 
-  }
-  function update_adress()
-  {
-    var begin = "http://"
-    var stream = "/stream?topic="
-    document.getElementById("camera_url").src=begin+document.getElementById("adress").value+stream+document.getElementById("topic").value; 
-  }
+    function set_adress()
+    {
+      var begin = "http://"
+      document.getElementById("camera_url").src=begin+document.getElementById("adress").value+topic;
+    }
+    function update_adress()
+    {
+      var begin = "http://"
+      var stream = "/stream?topic="
+      document.getElementById("camera_url").src=begin+document.getElementById("adress").value+stream+document.getElementById("topic").value;
+      console.log("Camera topic :" + begin+document.getElementById("adress").value+stream+document.getElementById("topic").value);
+    }
 
   </script>
+  <style>
+  .slidecontainer {
+      width: 100%;
+  }
+
+  .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+  }
+
+  .slider:hover {
+      opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+  </style>
 </head>
 
 <body>
@@ -34,19 +72,115 @@
     <a href="emotions.html"><img src="icon/emo_icon.png" alt="Smiley face" height="20"> Emotions</a>
     <a href="soundboard.html"><img src="icon/sound_icon.png" alt="Smiley face" height="20"> Soundboard</a>
     <a href="camera.html"><img src="icon/camera_icon.png" alt="Smiley face" height="20"> Camera</a>
+    <a href="behaviors.html"><img src="icon/move_icon.png" alt="Smiley face" height="20"> Behaviors</a>
   </div>
 
   <div id="main">
-
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
-    <div>
-    <img id="camera_url" src="http://192.168.1.229:8080/stream?topic=/head_xtion/rgb/image_raw"></img>
+    <div align="right">
+      <p id="connection_status" style="display:inline;color:red;font-size:20px;border:3px; border-style:solid; border-color:#FF0000; padding: 0.5em;">
+        Not connected
+      </p>
     </div>
-    <input id="adress" type="text" name="adress" value="192.168.1.229:8080"> 
-    <input id="topic" type="text" name="topic" value="/head_xtion/rgb/image_raw">
-    <button type="button" onclick="update_adress();">Update adress</button>  
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
 
+
+
+
+    <div style="display: flex;align-items: center;justify-content: center;" align="center">
+      <div align="left" style="width:30%; padding:5px;" class="slidecontainer">
+        <h1>Pitch (<span id="pitchValue"></span>)</h1>
+        <input type="range" step="0.01" min="-1.0" max="1" value="0" class="slider" id="pitchSlider">
+
+      </div>
+
+      <div align="right" style="width:30%; padding:5px;" class="slidecontainer">
+        <h1>Yaw (<span id="yawValue"></span>)</h1>
+        <input type="range" step="0.01" min="-1.0" max="1" value="0" class="slider" id="yawSlider">
+
+      </div>
+    </div>
+
+
+    <script>
+    var sliderPitch = document.getElementById("pitchSlider");
+    var outputPitch = document.getElementById("pitchValue");
+    outputPitch.innerHTML = sliderPitch.value;
+    sliderPitch.onmouseup = function() {
+      setHeadPitch(parseFloat(this.value)*-1);
+    }
+    sliderPitch.oninput = function() {
+      outputPitch.innerHTML = parseFloat(this.value)*-1
+    }
+
+    var sliderYaw = document.getElementById("yawSlider");
+    var outputYaw= document.getElementById("yawValue");
+    outputYaw.innerHTML = sliderYaw.value;
+    sliderYaw.onmouseup = function() {
+      setHeadYaw(parseFloat(this.value)*-1);
+    }
+    sliderYaw.oninput = function() {
+      outputYaw.innerHTML = parseFloat(this.value)*-1;
+    }
+
+    </script>
+
+
+
+    <div>
+<div align="center">
+    <img id="camera_url" src="http://192.168.1.229:8080/stream?topic=/yolo_laptop"></img>
+    </div>
+<div align="center">
+    <input id="adress" type="text" name="adress" value="192.168.1.229:8080">
+
+
+
+
+    <input id="topic" type="text" name="topic" value="/yolo_laptop">
+    <button type="button" onclick="update_adress();">Update adress</button>
 </div>
+<input id="input_key">
+</div>
+</div>
+<script>
+openNav();
+document.getElementById("adress").value=URL+':8080';
+update_adress();
 
+</script>
+<script>
+var input_key = document.getElementById("input_key");
+
+input_key.addEventListener("keydown", function(event) {
+  if(event.keyCode === 38)
+  {
+    move_front();
+  }
+  if(event.keyCode === 40)
+  {
+    move_back();
+  }
+  if(event.keyCode === 37)
+  {
+    twist_left();
+  }
+  if(event.keyCode === 39)
+  {
+    twist_right();
+  }
+  if(event.keyCode === 33)
+  {
+    front_twist_left();
+  }
+  if(event.keyCode === 34)
+  {
+    front_twist_right();
+  }
+})
+input_key.addEventListener("keyup", function(event) {
+  console.log(event.keyCode);
+  move_stop();
+})
+</script>
 </body>
 </html>
