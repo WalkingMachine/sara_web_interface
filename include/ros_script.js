@@ -101,6 +101,15 @@ var run_trajectory = new ROSLIB.Service({
   serviceType : 'wm_trajectory_manager/run_trajectory'
 });
 
+var diagnostics = new ROSLIB.Topic({
+  ros : ros,
+  name : '/diagnostics',
+  messageType : 'diagnostic_msgs/DiagnosticArray'
+});
+
+
+
+
 function play_sound(filename) {
   var str = new ROSLIB.Message({data : filename});
   var request = new ROSLIB.ServiceRequest({play : str});
