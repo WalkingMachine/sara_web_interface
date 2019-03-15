@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="include/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+
+  <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+  <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+  <script type="text/javascript" src="include/ros_script.js"></script>
+  <script type="text/javascript" src="include/sidepanel_script.js"></script>
+  <style>
+  .slidecontainer {
+      width: 100%;
+  }
+
+  .slider {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 25px;
+      background: #d3d3d3;
+      outline: none;
+      opacity: 0.7;
+      -webkit-transition: .2s;
+      transition: opacity .2s;
+  }
+
+  .slider:hover {
+      opacity: 1;
+  }
+
+  .slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+
+  .slider::-moz-range-thumb {
+      width: 25px;
+      height: 25px;
+      background: #1e50a0;
+      cursor: pointer;
+  }
+
+  .equal-width td {
+    width: 10%;
+    height: 40px;
+  }
+  </style>
+</head>
+
+<body>
+
+  <div id="mySidenav" class="sidenav">
+      <a href="http://walkingmachine.ca"><img src="icon/logo_wm.png" height="70"></a>
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="index.html"><img src="icon/home_icon.png" height="20"> Home</a>
+    <a href="movement.html"><img src="icon/move_icon.png" height="20"> Movement</a>
+    <a href="emotions.html"><img src="icon/emo_icon.png" height="20"> Emotions</a>
+    <a href="soundboard.html"><img src="icon/sound_icon.png" height="20"> Soundboard</a>
+    <a href="camera.html"><img src="icon/camera_icon.png" height="20"> Camera</a>
+    <a href="behaviors.html"><img src="icon/behavior_icon.png" width="20"> Behaviors</a>
+    <a href="diagnostics.html"><img src="icon/diag_icon.png" height="20"> Diagnostics</a>
+    <a href="debug.html"><img src="icon/btn_empty.png" height="70"></a>
+
+  </div>
+
+  <div id="main">
+
+    <div align="right">
+      <p id="connection_status" style="display:inline;color:red;font-size:20px;border:3px; border-style:solid; border-color:#FF0000; padding: 0.5em;">
+        Not connected
+      </p>
+    </div>
+
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+      <div>
+          <br>
+          <button class="button" onclick="fullscreen()">Exit fullscreen</button>
+
+      </div>
+
+
+
+      <script>
+      diagnostics.subscribe(function(message) {
+
+
+        for (i=0; i<message.status.length; i++)
+        {
+          if(message.status[i].name == "urg_node: Hardware Status")
+          {
+            document.getElementById("lidar_status").innerHTML = message.status[i].values.filter(obj => {return obj.key === "Device Status"})[0].value;
+          }
+          if(message.status[i].name == "urg_node: Laser Scan topic status")
+          {
+            document.getElementById("lidar_freq").innerHTML = parseFloat(message.status[i].values.filter(obj => {return obj.key === "Actual frequency (Hz)"})[0].value).toFixed(2)+'Hz';
+          }
+
+          if(message.status[i].name == "Temperature_Sensors")
+          {
+
+            for(core=1; core < message.status[i].values.length; core++){
+              elem ="cpu_temp"+String(core);
+              document.getElementById(elem).innerText = Math.round(message.status[i].values[core].value) +'°C';
+            }
+          }
+          if(message.status[i].name == "Memory_Usage")
+          {
+            ram_used = message.status[i].values.filter(obj => {return obj.key === "Mem_Used"})[0].value;
+            ram_total = message.status[i].values.filter(obj => {return obj.key === "Mem_Total"})[0].value;
+            document.getElementById("ram_usage").innerHTML =  Math.round(ram_used/1000) + '/' + Math.round(ram_total/1000) + "go";
+            document.getElementById("ram_usage_per").innerHTML =  Math.round(ram_used/ram_total*100) + '%';
+          }
+          if(message.status[i].name == "CPU_Usage")
+          {
+            for(core=0; core < message.status[i].values.length; core++){
+              elem ="cpu_usage"+String(core);
+              document.getElementById(elem).innerText = message.status[i].values[core].value +'%';
+            }
+          }
+          if(message.status[i].name == "kinova_arm")
+          {
+              for(j in message.status[i].values)
+              {
+                elem = message.status[i].hardware_id + '_' + message.status[i].values[j].key;
+                console.log(elem);
+
+                document.getElementById(elem).innerText = Math.round(message.status[i].values[j].value*100)/100;
+                if(message.status[i].values[j].key == "temperature")
+                  document.getElementById(elem).innerText += '°C';
+              }
+          }
+        }
+
+
+
+
+
+      });
+
+
+      function fullscreen() {
+    var isInFullScreen = (document.fullscreenElement && document.fullscreenElement !== null) ||
+        (document.webkitFullscreenElement && document.webkitFullscreenElement !== null) ||
+        (document.mozFullScreenElement && document.mozFullScreenElement !== null) ||
+        (document.msFullscreenElement && document.msFullscreenElement !== null);
+
+    var docElm = document.documentElement;
+    if (!isInFullScreen) {
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.mozRequestFullScreen) {
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullScreen) {
+            docElm.webkitRequestFullScreen();
+        } else if (docElm.msRequestFullscreen) {
+            docElm.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+
+      </script>
+
+  </div>
+  <script>openNav()</script>
+</body>
+</html>
