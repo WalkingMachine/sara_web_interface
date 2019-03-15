@@ -21,6 +21,7 @@
 <body>
 
   <div id="mySidenav" class="sidenav">
+      <a href="http://walkingmachine.ca"><img src="icon/logo_wm.png" height="70"></a>
     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     <a href="index.html"><img src="icon/home_icon.png" height="20"> Home</a>
     <a href="movement.html"><img src="icon/move_icon.png" height="20"> Movement</a>
@@ -52,12 +53,32 @@
   <button id="btn_right" class="button" onmouseup="move_stop()" onmousedown="twist_right()">Twist Right</button>
 
 </br>
+  <h1>Column</h1>
+  <button id="btn_setzero" class="button" onmouseup="setZero()">Set zero</button>
+  <button id="btn_setmax" class="button" onmouseup="setMax()">Set max</button>
+  <input type="range" step="1" min="0" max="2387" value="0" class="slider" id="columnSlider">
+	<h1>Position (<span id="columnValue"></span>)</h1>
+
+</br>
+</br>
 <input id="input_key">
 
 
 </div>
 <script>openNav()</script>
 <script>
+
+var sliderColumn = document.getElementById("columnSlider");
+var outputColumn= document.getElementById("columnValue");
+outputColumn.innerHTML = sliderColumn.value;
+sliderColumn.onmouseup = function() {
+setPosition(this.value);
+}
+sliderColumn.oninput = function() {
+outputColumn.innerHTML = this.value;
+}
+
+
 var input_key = document.getElementById("input_key");
 
 input_key.addEventListener("keydown", function(event) {
